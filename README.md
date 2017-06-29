@@ -106,20 +106,30 @@ Install PostgreSQL:
 `$ sudo apt-get install postgresql postgresql-contrib.`
 Login as postgres user 
 `$ sudo su - postgres`, then connect to the database system with $ psql.
-	Create a new user called `cuisine` with his password: 
-	# CREATE USER catalog WITH PASSWORD `sillypassword`;.
-	Give catalog user the CREATEDB capability: 
-	# ALTER USER catalog CREATEDB;.
-	Create the `catalog` database owned by catalog user: 
-	# CREATE DATABASE catalog WITH OWNER catalog;.
+	Create a new user called `cuisine` with his password:
+	`# CREATE USER cuisine WITH PASSWORD `cuisine`;.`
+	
+	Give cuisine user the CREATEDB capability: 
+	`# ALTER USER cuisine CREATEDB;.`
+
+	Create the `cuisinewisedb` database owned by cuisine user: 
+	`# CREATE DATABASE cuisinewisedb WITH OWNER cuisine;.`
+
 	Connect to the database: 
-	# \c catalog.
-	Revoke all rights: # REVOKE ALL ON SCHEMA public FROM public;.
-	Lock down the permissions to only let catalog role create tables: # GRANT ALL ON SCHEMA public TO catalog;.
-	Log out from PostgreSQL: # \q. Then return to the grader user: $ exit.
+	`# \c cuisine.`
+
+	Revoke all rights: `# REVOKE ALL ON SCHEMA public FROM public;.`
+	Lock down the permissions to only let cuisine role create tables: `# GRANT ALL ON SCHEMA public TO cuisine;.`
+
+	Log out from PostgreSQL: `# \q.` Then return to the grader user: $ exit.
+
 	Inside the Flask application, change the create engine statement as follows:
-	engine = create_engine(`postgresql://catalog:sillypassword@localhost/catalog`)
-	Setup the database with: $ python /var/www/catalog/catalog/setup_database.py.
+
+	`engine = create_engine(`postgresql://catalog:sillypassword@localhost/catalog`)`
+
+	Setup the database with: `$ python /var/www/catalog/catalog/database_setup.py.`
+
+	Populate the database with: `$ python /var/www/catalog/catalog/addDataToCuisine.py.`
 
 [Source](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps)
 
@@ -142,7 +152,7 @@ Quit postgreSQL postgres=# \q
 
 Exit from user "postgres"
 
-exit
+`exit`
 
 [Source](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
 [Source](https://www.a2hosting.com/kb/developer-corner/postgresql/managing-postgresql-databases-and-users-from-the-command-line)
@@ -157,47 +167,49 @@ Deploy the Item Catalog project.
 
 
 Give access to current user to var directory
-sudo chown -R username.www-data /var/www
 
-sudo chmod -R +rwx /var/www
+`sudo chown -R username.www-data /var/www`
+
+`sudo chmod -R +rwx /var/www`
 
 create a new dir catalog
 
-cd /var/www 
-sudo mkdir catalog 
-cd catalog 
+`cd /var/www `
+`sudo mkdir catalog `
+`cd catalog `
 
 Make sure the .git directory is not publicly accessible via a browser 
 At the root of the web directory, add a .htaccess file and include this line: 
-RedirectMatch 404 /\.git
+
+`RedirectMatch 404 /\.git`
 
 
 Move to your project folder :
 
-cd /var/www/catalog/CuisineWise
+`cd /var/www/catalog/CuisineWise`
 
-Rename project.py to __init__.py using sudo mv project.py __init__.py
+Rename project.py to __init__.py using `sudo mv project.py __init__.py`
 
 install python and virtual env
 
-sudo apt-get install python-pip
-sudo pip install virtualenv
+`sudo apt-get install python-pip`
+`sudo pip install virtualenv`
 
 install dependencies:
 
-sudo pip install flask-sqlalchemy
-sudo apt-get install python-httplib2
-sudo apt-get install python-requests
+`sudo pip install flask-sqlalchemy`
+`sudo apt-get install python-httplib2`
+`sudo apt-get install python-requests`
 
 
 Give the following command (where catalogapp is the name you would like to give your temporary environment):
 
-sudo virtualenv catalogapp
+`sudo virtualenv catalogapp`
 
 Now, install Flask in that environment by activating the virtual environment with the following command 
 source catalogapp/bin/activate
 
-sudo pip install Flask
+`sudo pip install Flask`
 
 Run the following command to test if the installation is successful and the app is running 
 sudo python __init__.py renamed project.py to init.py 
@@ -205,27 +217,27 @@ It should display “Running on http://localhost:5000/” or "Running on http://
 If you see this message, you have successfully configured the app.
 
 To deactivate the environment, give the following command 
-deactivate
+`deactivate`
 
 Configure and Enable the new Virtual Host sudo nano /etc/apache2/sites-available/CuisineApp.conf
 
-<VirtualHost *:80>
-		ServerName 13.59.193.116
-		ServerAdmin admin@13.59.193.116
-		WSGIScriptAlias / /var/www/catalog/catalog.wsgi
-		<Directory /var/www/catalog/CuisineWise/>
-			Order allow,deny
-			Allow from all
-		</Directory>
-		Alias /static /var/www/catalog/CuisineWise/static
-		<Directory /var/www/catalog/CuisineWise/static/>
-			Order allow,deny
-			Allow from all
-		</Directory>
-		ErrorLog ${APACHE_LOG_DIR}/error.log
-		LogLevel warn
-		CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
+<VirtualHost *:80><br />
+		ServerName 13.59.193.116<br />
+		ServerAdmin admin@13.59.193.116<br />
+		WSGIScriptAlias / /var/www/catalog/catalog.wsgi<br />
+		<Directory /var/www/catalog/CuisineWise/><br />
+			Order allow,deny<br />
+			Allow from all<br />
+		</Directory><br />
+		Alias /static /var/www/catalog/CuisineWise/static<br />
+		<Directory /var/www/catalog/CuisineWise/static/><br />
+			Order allow,deny<br />
+			Allow from all<br />
+		</Directory><br />
+		ErrorLog ${APACHE_LOG_DIR}/error.log<br />
+		LogLevel warn<br />
+		CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
+</VirtualHost><br />
 
 Save and close the file.
 
@@ -239,14 +251,14 @@ sudo service apache2 restart
 
 create wsgi file :
 
-#!/usr/bin/python
+`#!/usr/bin/python
 import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/catalog")
 
 from CuisineWise import app as application
-application.secret_key = `....secret key....` (hidden for security)
+application.secret_key = `....secret key....` (hidden for security)`
 
 
 ### 14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser!
@@ -258,16 +270,16 @@ For port already in use error :
 
 Check which process is running on specified port 
 
-sudo netstat -lpn |grep :5000
+`sudo netstat -lpn |grep :5000`
 
 Kill all processes running on port 5000
 
-sudo fuser -k 5000/tcp	
+`sudo fuser -k 5000/tcp	`
 
 
 sample wsgi that works :
 
-def application(environ, start_response):
+`def application(environ, start_response):
     status = `200 OK`
     output = b`Hello World!`
 
@@ -275,11 +287,11 @@ def application(environ, start_response):
                         (`Content-Length`, str(len(output)))]
     start_response(status, response_headers)
 
-    return [output]
+    return [output]`
 
 check error logs:
 
-sudo tail -f /var/log/apache2/error.log
+`sudo tail -f /var/log/apache2/error.log`
 
 users and passwords :
 
