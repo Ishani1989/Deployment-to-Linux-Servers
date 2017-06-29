@@ -1,6 +1,6 @@
 # Deploying my web application to Linux
 
-To complete this project, you'll need a Linux server instance. We recommend using Amazon Lightsail for this. If you don't already have an Amazon Web Services account, you'll need to set one up. Once you've done that, here are the steps to complete this project.
+To complete this project, you`ll need a Linux server instance. We recommend using Amazon Lightsail for this. If you don`t already have an Amazon Web Services account, you`ll need to set one up. Once you`ve done that, here are the steps to complete this project.
 
 ## Username : grader
    Password : grader
@@ -8,54 +8,56 @@ To complete this project, you'll need a Linux server instance. We recommend usin
    port : 2200
 
 
-Get your server.
-1. Start a new Ubuntu Linux server instance on Amazon Lightsail. There are full details on setting up your Lightsail instance on the next page.
-2. Follow the instructions provided to SSH into your server.
+## 1. Get your server. Start a new Ubuntu Linux server instance on Amazon Lightsail. There are full details on setting up your Lightsail instance on the next page.
 
-Secure your server.
-3. Update all available packages on server by running the following command as root user
-
-'sudo apt-get update'
-
-Upgrade all packages on server by running the following command as root user
-
-'sudo apt-get upgrade'
-
-Makechanges to include 2200 as custom port on the networking tab for your sail app.
-Allow port 2200 on UFW
+## 2. Follow the instructions provided to SSH into your server.
 
 
-'sudo ufw status'
-'sudo ufw allow ssh'
-'sudo ufw allow 2200/tcp'
-'sudo ufw allow www'
-'sudo ufw enable'
-'sudo ufw status	'
+## 3. Secure your server. Update all available packages on server by running the following command as root user
+
+  `sudo apt-get update`
+
+   Upgrade all packages on server by running the following command as root user
+
+  `sudo apt-get upgrade`
+
+   Makechanges to include 2200 as custom port on the networking tab for your sail app.
+
+   Allow port 2200 on UFW
+
+	`sudo ufw status`
+	`sudo ufw allow ssh`
+	`sudo ufw allow 2200/tcp`
+	`sudo ufw allow www`
+	`sudo ufw enable`
+	`sudo ufw status`
 
 4. Change the SSH port from 22 to 2200. Make sure to configure the Lightsail firewall to allow it.
 
-login as root user by typing 
-'sudo vim /etc/ssh/sshd_config'
-The # symbol tells the server to ignore anything after it on the same line, so we will need to remove that character and then change the number 22 to 2200.
+   login as root user by typing 
 
-Restart the sshd service by running the following command:
-'sudo service sshd restart'
+   `sudo vim /etc/ssh/sshd_config`
+   The # symbol tells the server to ignore anything after it on the same line, so we will need to remove that character and then change the number 22 to 2200.
+
+   Restart the sshd service by running the following command:
+
+   `sudo service sshd restart`
 
 5. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
 
-Warning: When changing the SSH port, make sure that the firewall is open for port 2200 first, so that you don't lock yourself out of the server. Review this video for details! When you change the SSH port, the Lightsail instance will no longer be accessible through the web app 'Connect using SSH' button. The button assumes the default port is being used. There are instructions on the same page for connecting from your terminal to the instance. Connect using those instructions and then follow the rest of the steps.
+Warning: When changing the SSH port, make sure that the firewall is open for port 2200 first, so that you don`t lock yourself out of the server. Review this video for details! When you change the SSH port, the Lightsail instance will no longer be accessible through the web app `Connect using SSH` button. The button assumes the default port is being used. There are instructions on the same page for connecting from your terminal to the instance. Connect using those instructions and then follow the rest of the steps.
 Give grader access.
 In order for your project to be reviewed, the grader needs to be able to log in to your server.
 
 6. Create a new user account named grader.
 
-'sudo adduser grader'
+`sudo adduser grader`
 password : grader
 
 7. Give grader the permission to sudo.
 
-'usermod -aG sudo grader'
-'su - grader'
+`usermod -aG sudo grader`
+`su - grader`
 
 [Source](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart)
 
@@ -82,33 +84,33 @@ sudo service ssh restart
 Prepare to deploy your project.
 9. Configure the local timezone to UTC.
 
-'sudo  timedatectl set-timezone Etc/UTC'
+`sudo  timedatectl set-timezone Etc/UTC`
 
 
 10. Install and configure Apache to serve a Python mod_wsgi application.
 
-'sudo apt-get install apache2'
-'https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04'
-'sudo service apache2 restart'
+`sudo apt-get install apache2`
+`https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04`
+`sudo service apache2 restart`
 
 11. Install and configure PostgreSQL:
 
-'sudo apt-get install postgresql'
+`sudo apt-get install postgresql`
 
 Install some necessary Python packages for working with PostgreSQL: 
 
-'$ sudo apt-get install libpq-dev python-dev.'
+`$ sudo apt-get install libpq-dev python-dev.`
 
 Install PostgreSQL: 
 
-'$ sudo apt-get install postgresql postgresql-contrib.'
+`$ sudo apt-get install postgresql postgresql-contrib.`
 Login as postgres user 
-'$ sudo su - postgres', then connect to the database system with $ psql.
-	Create a new user called 'catalog' with his password: 
-	# CREATE USER catalog WITH PASSWORD 'sillypassword';.
+`$ sudo su - postgres`, then connect to the database system with $ psql.
+	Create a new user called `catalog` with his password: 
+	# CREATE USER catalog WITH PASSWORD `sillypassword`;.
 	Give catalog user the CREATEDB capability: 
 	# ALTER USER catalog CREATEDB;.
-	Create the 'catalog' database owned by catalog user: 
+	Create the `catalog` database owned by catalog user: 
 	# CREATE DATABASE catalog WITH OWNER catalog;.
 	Connect to the database: 
 	# \c catalog.
@@ -116,25 +118,25 @@ Login as postgres user
 	Lock down the permissions to only let catalog role create tables: # GRANT ALL ON SCHEMA public TO catalog;.
 	Log out from PostgreSQL: # \q. Then return to the grader user: $ exit.
 	Inside the Flask application, change the create engine statement as follows:
-	engine = create_engine('postgresql://catalog:sillypassword@localhost/catalog')
+	engine = create_engine(`postgresql://catalog:sillypassword@localhost/catalog`)
 	Setup the database with: $ python /var/www/catalog/catalog/setup_database.py.
 
 [Source](https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-on-an-ubuntu-vps)
 
 Do not allow remote connections
 
-'sudo vim /etc/postgresql/9.3/main/pg_hba.conf'
+`sudo vim /etc/postgresql/9.3/main/pg_hba.conf`
 
 Create a new database user named catalog that has limited permissions to your catalog application database.
 
 Switch accounts to postgres user
-'sudo -i -u postgres'
+`sudo -i -u postgres`
 
-'createdb catalog'
+`createdb catalog`
 
-'sudo adduser catalog'
+`sudo adduser catalog`
 
-'GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;'
+`GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;`
 
 Quit postgreSQL postgres=# \q
 
@@ -147,7 +149,7 @@ exit
 
 12. Install git.
 
-'sudo apt-get install git'
+`sudo apt-get install git`
 
 
 Deploy the Item Catalog project.
@@ -244,7 +246,7 @@ logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/catalog")
 
 from CuisineWise import app as application
-application.secret_key = '....secret key....' (hidden for security)
+application.secret_key = `....secret key....` (hidden for security)
 
 
 14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser!
@@ -266,11 +268,11 @@ sudo fuser -k 5000/tcp
 sample wsgi that works :
 
 def application(environ, start_response):
-    status = '200 OK'
-    output = b'Hello World!'
+    status = `200 OK`
+    output = b`Hello World!`
 
-    response_headers = [('Content-type', 'text/plain'),
-                        ('Content-Length', str(len(output)))]
+    response_headers = [(`Content-type`, `text/plain`),
+                        (`Content-Length`, str(len(output)))]
     start_response(status, response_headers)
 
     return [output]
