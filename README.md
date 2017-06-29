@@ -2,18 +2,18 @@
 
 To complete this project, you`ll need a Linux server instance. We recommend using Amazon Lightsail for this. If you don`t already have an Amazon Web Services account, you`ll need to set one up. Once you`ve done that, here are the steps to complete this project.
 
-## Username : grader
+   Username : grader
    Password : grader
    url : [link](http://ec2-13-59-193-116.us-east-2.compute.amazonaws.com/)
    port : 2200
 
 
-## 1. Get your server. Start a new Ubuntu Linux server instance on Amazon Lightsail. There are full details on setting up your Lightsail instance on the next page.
+### 1. Get your server. Start a new Ubuntu Linux server instance on Amazon Lightsail. There are full details on setting up your Lightsail instance on the next page.
 
-## 2. Follow the instructions provided to SSH into your server.
+### 2. Follow the instructions provided to SSH into your server.
 
 
-## 3. Secure your server. Update all available packages on server by running the following command as root user
+### 3. Secure your server. Update all available packages on server by running the following command as root user
 
   `sudo apt-get update`
 
@@ -32,7 +32,7 @@ To complete this project, you`ll need a Linux server instance. We recommend usin
 	`sudo ufw enable`
 	`sudo ufw status`
 
-4. Change the SSH port from 22 to 2200. Make sure to configure the Lightsail firewall to allow it.
+### 4. Change the SSH port from 22 to 2200. Make sure to configure the Lightsail firewall to allow it.
 
    login as root user by typing 
 
@@ -43,18 +43,18 @@ To complete this project, you`ll need a Linux server instance. We recommend usin
 
    `sudo service sshd restart`
 
-5. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
+### 5. Configure the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123).
 
 Warning: When changing the SSH port, make sure that the firewall is open for port 2200 first, so that you don`t lock yourself out of the server. Review this video for details! When you change the SSH port, the Lightsail instance will no longer be accessible through the web app `Connect using SSH` button. The button assumes the default port is being used. There are instructions on the same page for connecting from your terminal to the instance. Connect using those instructions and then follow the rest of the steps.
 Give grader access.
 In order for your project to be reviewed, the grader needs to be able to log in to your server.
 
-6. Create a new user account named grader.
+### 6. Create a new user account named grader.
 
 `sudo adduser grader`
 password : grader
 
-7. Give grader the permission to sudo.
+### 7. Give grader the permission to sudo.
 
 `usermod -aG sudo grader`
 `su - grader`
@@ -62,7 +62,7 @@ password : grader
 [Source](https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart)
 
 
-8. Create an SSH key pair for grader using the ssh-keygen tool.
+### 8. Create an SSH key pair for grader using the ssh-keygen tool.
 
 Using GitBash from your windows machine, run ssh-keygen command
 Specify the file to save the key pair.
@@ -81,19 +81,19 @@ sudo service ssh restart
 [Source](https://askubuntu.com/questions/306798/trying-to-do-ssh-authentication-with-key-files-server-refused-our-key)
 
 
-Prepare to deploy your project.
-9. Configure the local timezone to UTC.
+### 9. Prepare to deploy your project.
+	   Configure the local timezone to UTC.
 
 `sudo  timedatectl set-timezone Etc/UTC`
 
 
-10. Install and configure Apache to serve a Python mod_wsgi application.
+### 10. Install and configure Apache to serve a Python mod_wsgi application.
 
 `sudo apt-get install apache2`
 `https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-16-04`
 `sudo service apache2 restart`
 
-11. Install and configure PostgreSQL:
+### 11. Install and configure PostgreSQL:
 
 `sudo apt-get install postgresql`
 
@@ -106,7 +106,7 @@ Install PostgreSQL:
 `$ sudo apt-get install postgresql postgresql-contrib.`
 Login as postgres user 
 `$ sudo su - postgres`, then connect to the database system with $ psql.
-	Create a new user called `catalog` with his password: 
+	Create a new user called `cuisine` with his password: 
 	# CREATE USER catalog WITH PASSWORD `sillypassword`;.
 	Give catalog user the CREATEDB capability: 
 	# ALTER USER catalog CREATEDB;.
@@ -147,13 +147,13 @@ exit
 [Source](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-16-04)
 [Source](https://www.a2hosting.com/kb/developer-corner/postgresql/managing-postgresql-databases-and-users-from-the-command-line)
 
-12. Install git.
+### 12. Install git.
 
 `sudo apt-get install git`
 
-
 Deploy the Item Catalog project.
-13. Clone and setup your Item Catalog project from the Github repository you created earlier in this Nanodegree program.
+
+### 13. Clone and setup your Item Catalog project from the Github repository you created earlier in this Nanodegree program.
 
 
 Give access to current user to var directory
@@ -249,10 +249,10 @@ from CuisineWise import app as application
 application.secret_key = `....secret key....` (hidden for security)
 
 
-14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser!
+### 14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser!
 
 
-15. Error Handling :
+### 15. Error Handling :
 
 For port already in use error :
 
@@ -288,7 +288,7 @@ grader password : grader
 catalog password : catalog
 lightsail static password : light
 
-#References :
+### References :
 
 1. https://httpd.apache.org/docs/2.2/vhosts/examples.html
 2. https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
