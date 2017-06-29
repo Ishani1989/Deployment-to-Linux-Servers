@@ -222,21 +222,21 @@ To deactivate the environment, give the following command
 Configure and Enable the new Virtual Host sudo nano /etc/apache2/sites-available/CuisineApp.conf
 
 <VirtualHost *:80><br />
-&nbsp;	ServerName 13.59.193.116<br />
-&nbsp;	ServerAdmin admin@13.59.193.116<br />
-&nbsp;	WSGIScriptAlias / /var/www/catalog/catalog.wsgi<br />
-&nbsp;  <Directory /var/www/catalog/CuisineWise/><br />
-&nbsp;&nbsp;	Order allow,deny<br />
-&nbsp;&nbsp;	Allow from all<br />
-&nbsp;	</Directory><br />
-&nbsp;	Alias /static /var/www/catalog/CuisineWise/static<br />
-&nbsp;	<Directory /var/www/catalog/CuisineWise/static/><br />
-&nbsp;&nbsp;	Order allow,deny<br />
-&nbsp;&nbsp;	Allow from all<br />
-&nbsp;	</Directory><br />
-&nbsp;	ErrorLog ${APACHE_LOG_DIR}/error.log<br />
-&nbsp;	LogLevel warn<br />
-&nbsp;	CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	ServerName 13.59.193.116<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	ServerAdmin admin@13.59.193.116<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	WSGIScriptAlias / /var/www/catalog/catalog.wsgi<br />
+&nbsp; &nbsp;&nbsp;&nbsp;<Directory /var/www/catalog/CuisineWise/><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Order allow,deny<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allow from all<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</Directory><br />
+&nbsp;&nbsp;&nbsp;&nbsp;Alias /static /var/www/catalog/CuisineWise/static<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<Directory /var/www/catalog/CuisineWise/static/><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Order allow,deny<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allow from all<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	</Directory><br />
+&nbsp;&nbsp;&nbsp;&nbsp;	ErrorLog ${APACHE_LOG_DIR}/error.log<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	LogLevel warn<br />
+&nbsp;&nbsp;&nbsp;&nbsp;	CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
 </VirtualHost><br />
 
 Save and close the file.
