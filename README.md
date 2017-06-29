@@ -5,6 +5,7 @@ To complete this project, you`ll need a Linux server instance. We recommend usin
    Username : grader
    Password : grader
    url : [link](http://ec2-13-59-193-116.us-east-2.compute.amazonaws.com/)
+   Static IP : 13.59.193.116
    port : 2200
 
 
