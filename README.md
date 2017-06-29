@@ -222,21 +222,21 @@ To deactivate the environment, give the following command
 Configure and Enable the new Virtual Host sudo nano /etc/apache2/sites-available/CuisineApp.conf
 
 <VirtualHost *:80><br />
-		ServerName 13.59.193.116<br />
-		ServerAdmin admin@13.59.193.116<br />
-		WSGIScriptAlias / /var/www/catalog/catalog.wsgi<br />
-		<Directory /var/www/catalog/CuisineWise/><br />
-			Order allow,deny<br />
-			Allow from all<br />
-		</Directory><br />
-		Alias /static /var/www/catalog/CuisineWise/static<br />
-		<Directory /var/www/catalog/CuisineWise/static/><br />
-			Order allow,deny<br />
-			Allow from all<br />
-		</Directory><br />
-		ErrorLog ${APACHE_LOG_DIR}/error.log<br />
-		LogLevel warn<br />
-		CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
+&nbsp;	ServerName 13.59.193.116<br />
+&nbsp;	ServerAdmin admin@13.59.193.116<br />
+&nbsp;	WSGIScriptAlias / /var/www/catalog/catalog.wsgi<br />
+&nbsp;  <Directory /var/www/catalog/CuisineWise/><br />
+&nbsp;&nbsp;	Order allow,deny<br />
+&nbsp;&nbsp;	Allow from all<br />
+&nbsp;	</Directory><br />
+&nbsp;	Alias /static /var/www/catalog/CuisineWise/static<br />
+&nbsp;	<Directory /var/www/catalog/CuisineWise/static/><br />
+&nbsp;&nbsp;	Order allow,deny<br />
+&nbsp;&nbsp;	Allow from all<br />
+&nbsp;	</Directory><br />
+&nbsp;	ErrorLog ${APACHE_LOG_DIR}/error.log<br />
+&nbsp;	LogLevel warn<br />
+&nbsp;	CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
 </VirtualHost><br />
 
 Save and close the file.
@@ -251,14 +251,14 @@ sudo service apache2 restart
 
 create wsgi file :
 
-`#!/usr/bin/python
-import sys
-import logging
-logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0,"/var/www/catalog")
+`#!/usr/bin/python`
+`import sys`
+`import logging`
+`logging.basicConfig(stream=sys.stderr)`
+`sys.path.insert(0,"/var/www/catalog")`
 
-from CuisineWise import app as application
-application.secret_key = `....secret key....` (hidden for security)`
+`from CuisineWise import app as application`
+`application.secret_key = `....secret key....` (hidden for security)`
 
 
 ### 14. Set it up in your server so that it functions correctly when visiting your server’s IP address in a browser. Make sure that your .git directory is not publicly accessible via a browser!
@@ -279,19 +279,19 @@ Kill all processes running on port 5000
 
 sample wsgi that works :
 
-`def application(environ, start_response):
-    status = `200 OK`
-    output = b`Hello World!`
+def application(environ, start_response):<br />
+    status = `200 OK`<br />
+    output = b`Hello World!`<br />
 
-    response_headers = [(`Content-type`, `text/plain`),
+    response_headers = [(`Content-type`, `text/plain`),<br />
                         (`Content-Length`, str(len(output)))]
-    start_response(status, response_headers)
+    start_response(status, response_headers)<br />
 
-    return [output]`
+    return [output]`<br />
 
 check error logs:
 
-`sudo tail -f /var/log/apache2/error.log`
+`sudo tail -f /var/log/apache2/error.log
 
 users and passwords :
 
