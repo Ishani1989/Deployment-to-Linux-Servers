@@ -228,7 +228,7 @@ Configure and Enable the new Virtual Host sudo nano /etc/apache2/sites-available
 &nbsp; &nbsp;&nbsp;&nbsp;<Directory /var/www/catalog/CuisineWise/><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Order allow,deny<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allow from all<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</Directory><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Directory><br />
 &nbsp;&nbsp;&nbsp;&nbsp;Alias /static /var/www/catalog/CuisineWise/static<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<Directory /var/www/catalog/CuisineWise/static/><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Order allow,deny<br />
