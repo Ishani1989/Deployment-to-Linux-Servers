@@ -2,11 +2,11 @@
 
 To complete this project, you'll need a Linux server instance. We recommend using Amazon Lightsail for this. If you don't already have an Amazon Web Services account, you'll need to set one up. Once you've done that, here are the steps to complete this project.
 
-Username : grader
-Password : grader
-url : [CuisineWise Application](http://ec2-52-32-219-71.us-west-2.compute.amazonaws.com/)
-IP : 52.32.219.71
-port : 2200
+Username : grader<br />
+Password : grader<br />
+url : [CuisineWise Application](http://ec2-52-32-219-71.us-west-2.compute.amazonaws.com/)<br />
+IP : 52.32.219.71<br />
+port : 2200<br />
 
 
 ### 1. Get your server. Start a new Ubuntu Linux server instance on Amazon Lightsail. 
