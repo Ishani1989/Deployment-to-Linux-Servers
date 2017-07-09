@@ -2,11 +2,11 @@
 
 To complete this project, you'll need a Linux server instance. We recommend using Amazon Lightsail for this. If you don't already have an Amazon Web Services account, you'll need to set one up. Once you've done that, here are the steps to complete this project.
 
-   Username : grader
-   Password : grader
-   url : [link](http://ec2-52-32-219-71.us-west-2.compute.amazonaws.com/)
-   IP : 52.32.219.71
-   port : 2200
+    Username : grader
+    Password : grader
+    url : [CuisineWise Application](http://ec2-52-32-219-71.us-west-2.compute.amazonaws.com/)
+    IP : 52.32.219.71
+    port : 2200
 
 
 ### 1. Get your server. Start a new Ubuntu Linux server instance on Amazon Lightsail. 
@@ -18,31 +18,31 @@ To complete this project, you'll need a Linux server instance. We recommend usin
 I have deployed this project on a Windows system and SSH wasn't configured to run on terminal.
 To use command line to SSH into your server, take the following steps:
 
-	1. Open up your command prompt
-	2. Check if the command SSH is recognized by the terminal by typing SSH
-	3. If it is recognized skip to step 5
-	4. If SSH is not recognized, add the path to ssh.exe file (USUALLY C:\Program Files\Git\usr\bin) to path variable
-	5. Download private key from light sail 
+1. Open up your command prompt
+2. Check if the command SSH is recognized by the terminal by typing SSH
+3. If it is recognized skip to step 5
+4. If SSH is not recognized, add the path to ssh.exe file (USUALLY C:\Program Files\Git\usr\bin) to path variable
+5. Download private key from light sail 
 
-![alt text](https://github.com/Ishani1989//blob/master/static/screenshots/DishDescriptionPage.JPG "Dish Description")
+![alt text](https://github.com/Ishani1989/Deployment-to-Linux-Servers/blob/master/screenshots/PrivateKeyDownload.JPG "Download Private Key")
 
-	6. Place it in a folder of your choice ( in this case I have used users home directory folder (C:\Users\Owner\.ssh))
-	7. Since our current directory in terminal is C:\Users\Owner, we write ~/.ssh in the following command.(means .ssh folder within current directory). If you kept it in some other folder, specify the full path to your private key.
-	8. By default, your instance comes with a user named 'ubuntu'. We will ssh as ubuntu using the command:
-		`ssh ubuntu@52.32.219.71 -p 22 -i ~/.ssh/LightsailDefaultPrivateKey-us-west-2.pem`
+6. Place it in a folder of your choice ( in this case I have used users home directory folder (C:\Users\Owner\.ssh))
+7. Since our current directory in terminal is C:\Users\Owner, we write ~/.ssh in the following command.(means .ssh folder within current directory). If you kept it in some other folder, specify the full path to your private key.
+8. By default, your instance comes with a user named 'ubuntu'. We will ssh as ubuntu using the command:
+	`ssh ubuntu@52.32.219.71 -p 22 -i ~/.ssh/LightsailDefaultPrivateKey-us-west-2.pem`
 
 
 ### 3. Secure your server. Update all available packages on server by running the following command as root user
 
-  `sudo apt-get update`
+`sudo apt-get update`
 
-   Upgrade all packages on server by running the following command as root user
+Upgrade all packages on server by running the following command as root user
 
-  `sudo apt-get upgrade`
+`sudo apt-get upgrade`
 
 ### 4. Makechanges to include 2200 as custom port on the networking tab for your sail app.
 
-   	Allow port 2200 on UFW
+Allow port 2200 on UFW
 
 	`sudo ufw status`
 	`sudo ufw allow ssh`
@@ -53,28 +53,29 @@ To use command line to SSH into your server, take the following steps:
 
 ### 5. Change the SSH port from 22 to 2200. Make sure to configure the Lightsail firewall to allow it.
 
-   	login as root user by typing 
+login as root user by typing 
 
    	`sudo vim /etc/ssh/sshd_config`
 
-   	Find the line with port number and change the number 22 to 2200.
+Find the line with port number and change the number 22 to 2200.
 
-   	Also, add a custom port to your lightsail instance having port as 2200.
+Also, add a custom port to your lightsail instance having port as 2200.
 
 ![alt text](https://github.com/Ishani1989/Deployment-to-Linux-Servers/blob/master/screenshots/AddPort.JPG "Add custom port")
 
 ### 6. Disable root login and enforce key based authentication
 
-	In the sshd_config file, 
+In the sshd_config file, 
 
-	Find the PasswordAuthentication line and edit it to no
-	Find the PermitRootLogin line and edit it to no.  Save and close this file.
+Find the `PasswordAuthentication` line and edit it to `no`
+Find the `PermitRootLogin` line and edit it to `no`.  
+Save and close this file.
 
-    Restart the sshd service by running the following command:
+Restart the sshd service by running the following command:
 
     `sudo service sshd restart`
 
-	Login again using ssh with the new port number :
+Login again using ssh with the new port number :
 	
 	`ssh ubuntu@52.32.219.71 -p 2200 -i ~/.ssh/LightsailDefaultPrivateKey-us-west-2.pem`
 
@@ -102,58 +103,58 @@ To use command line to SSH into your server, take the following steps:
 
 ### 8. Create an SSH key pair for grader using the ssh-keygen tool.
 
-	1. From your terminal on local machine run 
+1. From your terminal on local machine run 
 
 		`ssh-keygen`
 
-	By default, it generates RSA type token. Specify the file to save the key pair.
+By default, it generates RSA type token. Specify the file to save the key pair.
 
 ![alt text](https://github.com/Ishani1989/Deployment-to-Linux-Servers/blob/master/screenshots/GeneratingRSAtoken.JPG "RSA token generation")
 
-	The process generates 2 files. id_rsa and id_rsa.pub. the id_rsa.pub file will be placed on the server to allow access to users.
+The process generates 2 files. id_rsa and id_rsa.pub. the id_rsa.pub file will be placed on the server to allow access to users.
 
 ### 9. switch to user grader 
 
 	`su - grader`
 
-	and run follow the following commands :
+and run follow the following commands :
 
-		1.  `mkdir .ssh`
-		2.  `sudo touch .ssh/authorized_keys`
-		3.  Copy the contents of pub file from your local machine to the authorized_keys file
-		    `nano .ssh/authorized_keys`
-		4.  Paste the pub file you just copied in a single line
-		5.  Set up file permissions
-		    `chmod 700 .ssh`
-		    `chmod 600 .ssh/authorized_keys`
-		6.  Change /etc/ssh/sshd_config so it contains 'AuthorizedKeysFile %h/.ssh/authorized_keys '
-		7.  `sudo service ssh restart`
-		8.  Login with ssh using grader
+	1.  `mkdir .ssh`
+	2.  `sudo touch .ssh/authorized_keys`
+	3.  Copy the contents of pub file from your local machine to the authorized_keys file
+	    `nano .ssh/authorized_keys`
+	4.  Paste the pub file you just copied in a single line
+	5.  Set up file permissions
+	    `chmod 700 .ssh`
+	    `chmod 600 .ssh/authorized_keys`
+	6.  Change /etc/ssh/sshd_config so it contains 'AuthorizedKeysFile %h/.ssh/authorized_keys '
+	7.  `sudo service ssh restart`
+	8.  Login with ssh using grader
 			`ssh grader@52.32.219.71 -p 2200 -i ~/.ssh/id_rsa`
 
 
 ### 10. Prepare to deploy your project.
 	   
-	    Configure the local timezone to UTC.
+Configure the local timezone to UTC.
 
-		`sudo  timedatectl set-timezone Etc/UTC`
+	`sudo  timedatectl set-timezone Etc/UTC`
 
-		Install and configure Apache to serve a Python mod_wsgi application.
+Install and configure Apache to serve a Python mod_wsgi application.
 
 
-		1. Install Apache `sudo apt-get install apache2`
-		2. Install mod_wsgi `sudo apt-get install python-setuptools libapache2-mod-wsgi`
-		3. Restart Apache `sudo service apache2 restart`
+	1. Install Apache `sudo apt-get install apache2`
+	2. Install mod_wsgi `sudo apt-get install python-setuptools libapache2-mod-wsgi`
+	3. Restart Apache `sudo service apache2 restart`
 
 
 ### 11. Install and configure PostgreSQL:
 
-		`sudo apt-get install postgresql`
-		`$ sudo apt-get install postgresql postgresql-contrib.`
+	`sudo apt-get install postgresql`
+	`$ sudo apt-get install postgresql postgresql-contrib.`
 
 Install some necessary Python packages for working with PostgreSQL:
 
-		`$ sudo apt-get install libpq-dev python-dev.`
+	`$ sudo apt-get install libpq-dev python-dev.`
 
 Login as postgres user
 	`$ sudo su - postgres`, then connect to the database system with `$ psql.`
@@ -170,10 +171,15 @@ Login as postgres user
     Connect to the database:
     `# \c cuisinewisedb.`
 
-    Revoke all rights: `# REVOKE ALL ON SCHEMA public FROM public;.`
-    Lock down the permissions to only let cuisine role create tables: `# GRANT ALL ON SCHEMA public TO cuisine;.`
+Revoke all rights: 
 
-    Log out from PostgreSQL: `# \q.` Then return to the grader user: $ exit.
+	`# REVOKE ALL ON SCHEMA public FROM public;.`
+    
+Lock down the permissions to only let cuisine role create tables: 
+
+	`# GRANT ALL ON SCHEMA public TO cuisine;.`
+
+Log out from PostgreSQL: `# \q.` Then return to the grader user: `$ exit`
 
 
 ### 12. Install Git and Clone Repo:
@@ -187,12 +193,12 @@ Login as postgres user
 	6. `cd CuisineWise`
 	7. Rename project.py to __init__.py using `sudo mv project.py __init__.py`
 
-	We need to change the create engine statement wherever used (database_setup.py, __init__.py, addDataToCuisine.py) with the following statement to make it compatible with POSTgreSQL.
-		`engine = create_engine('postgresql://cuisine:cuisine@localhost/cuisinewisedb')`
+We need to change the create engine statement wherever used (database_setup.py, __init__.py, addDataToCuisine.py) with the following statement to make it compatible with POSTgreSQL.
+	`engine = create_engine('postgresql://cuisine:cuisine@localhost/cuisinewisedb')`
 
-	Here, username = cuisine
-		  password = cuisine
-		  db name = cuisinewisedb
+Here, username = cuisine
+	  password = cuisine
+	  db name = cuisinewisedb
 
 ### 13. Install dependencies:
 
@@ -210,14 +216,14 @@ Change the host name and port number on the app.run statement in __init__.py to 
 
 Create wsgi file in folder FlaskApp and add the following statements, save and quit.
 
-#!/usr/bin/python
-import sys
-import logging
-logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0,"/var/www/FlaskApp")
+	#!/usr/bin/python
+	import sys
+	import logging
+	logging.basicConfig(stream=sys.stderr)
+	sys.path.insert(0,"/var/www/FlaskApp")
 
-from CuisineWise import app as application
-application.secret_key = 'secret key as in your init.py file'
+	from CuisineWise import app as application
+	application.secret_key = 'secret key as in your init.py file'
 
 ### 15. Create virtual env config file
 
@@ -229,21 +235,21 @@ application.secret_key = 'secret key as in your init.py file'
 
 	<VirtualHost *:80><br />
 		ServerName 52.32.219.71<br />
-    	ServerAlias www.ec2-52-32-219-71.us-west-2.compute.amazonaws.com/<br />
-    	ServerAdmin admin@52.32.219.71<br />
-    	WSGIScriptAlias / /var/www/FlaskApp/cuisineapp.wsgi<br />
- 	<Directory /var/www/FlaskApp/CuisineWise/><br />
-    	Order allow,deny<br />
-    	Allow from all<br />
-	</Directory><br />
-	Alias /static /var/www/FlaskApp/CuisineWise/static<br />
-	<Directory /var/www/FlaskApp/CuisineWise/static/><br />
-	Order allow,deny<br />
-	    Allow from all<br />
-	    </Directory><br />
-	    ErrorLog ${APACHE_LOG_DIR}/error.log<br />
-	    LogLevel warn<br />
-	    CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
+		ServerAlias www.ec2-52-32-219-71.us-west-2.compute.amazonaws.com/<br />
+		ServerAdmin admin@52.32.219.71<br />
+		WSGIScriptAlias / /var/www/FlaskApp/cuisineapp.wsgi<br />
+		<Directory /var/www/FlaskApp/CuisineWise/><br />
+			Order allow,deny<br />
+			Allow from all<br />
+		</Directory><br />
+		Alias /static /var/www/FlaskApp/CuisineWise/static<br />
+		<Directory /var/www/FlaskApp/CuisineWise/static/><br />
+			Order allow,deny<br />
+			Allow from all<br />
+		</Directory><br />
+		ErrorLog ${APACHE_LOG_DIR}/error.log<br />
+		LogLevel warn<br />
+		CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
 	</VirtualHost><br />
 
 Save and close the file.
