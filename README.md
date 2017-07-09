@@ -268,7 +268,16 @@ Your application is now deployed. Check it on your browser at the given url.
 
 [CuisineWiseAppURL](http://ec2-52-32-219-71.us-west-2.compute.amazonaws.com/)
 
-### 17. Error Handling :
+
+### 17. Make Google Sign in work:
+
+1. Go to the project on the Developer Console: https://console.developers.google.com/project
+2. Navigate to APIs & auth > Credentials > Edit Settings
+3. Add your host name and public IP-address to your Authorized JavaScript origins
+4. Access your URL using the host name ainstead of IP address.
+5. GsignIn should work fine.
+
+### 18. Error Handling :
 
 ##### Common errors encountered:
 
