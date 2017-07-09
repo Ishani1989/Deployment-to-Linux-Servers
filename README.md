@@ -1,6 +1,6 @@
 # Deploying my web application to Linux
 
-To complete this project, you`ll need a Linux server instance. We recommend using Amazon Lightsail for this. If you don`t already have an Amazon Web Services account, you`ll need to set one up. Once you`ve done that, here are the steps to complete this project.
+To complete this project, you'll need a Linux server instance. We recommend using Amazon Lightsail for this. If you don't already have an Amazon Web Services account, you'll need to set one up. Once you've done that, here are the steps to complete this project.
 
    Username : grader
    Password : grader
@@ -11,7 +11,7 @@ To complete this project, you`ll need a Linux server instance. We recommend usin
 
 ### 1. Get your server. Start a new Ubuntu Linux server instance on Amazon Lightsail. 
 
-![alt text](https://github.com/Ishani1989//blob/master/static/screenshots/DishDescriptionPage.JPG "Dish Description")
+![alt text](https://github.com/Ishani1989/Deployment-to-Linux-Servers/blob/master/screenshots/serverInstance.JPG "Ubuntu Instance")
 
 ### 2. Follow the instructions provided to SSH into your server.
 
@@ -61,7 +61,7 @@ To use command line to SSH into your server, take the following steps:
 
    	Also, add a custom port to your lightsail instance having port as 2200.
 
-![alt text](https://github.com/Ishani1989//blob/master/static/screenshots/DishDescriptionPage.JPG "Dish Description")
+![alt text](https://github.com/Ishani1989/Deployment-to-Linux-Servers/blob/master/screenshots/AddPort.JPG "Add custom port")
 
 ### 6. Disable root login and enforce key based authentication
 
@@ -108,7 +108,7 @@ To use command line to SSH into your server, take the following steps:
 
 	By default, it generates RSA type token. Specify the file to save the key pair.
 
-	![alt text](https://github.com/Ishani1989//blob/master/static/screenshots/DishDescriptionPage.JPG "Dish Description")
+![alt text](https://github.com/Ishani1989/Deployment-to-Linux-Servers/blob/master/screenshots/GeneratingRSAtoken.JPG "RSA token generation")
 
 	The process generates 2 files. id_rsa and id_rsa.pub. the id_rsa.pub file will be placed on the server to allow access to users.
 
