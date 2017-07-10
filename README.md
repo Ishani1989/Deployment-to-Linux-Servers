@@ -87,6 +87,7 @@ Warning: When changing the SSH port, make sure that the firewall is open for por
 	sudo ufw status
 	sudo ufw allow 80/tcp
 	sudo ufw allow 123/udp
+	sudo ufw deny 22
 
 ### 8. Create a new user account named grader.
 
